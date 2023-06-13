@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script  id="script" src="./Baby_name.js"></script>
+    <style>
+        select{
+            width:150px;
+        }
+    </style>
+</head>
+<body onload="date();sel();">
+    <select id="myselect"  onclick="sel();"></select>
+    <button id="select" onclick="table();date();select();">select</button>
+    <button id="feel" onclick="table();date();feel();">I feel lucky!</button>
+    <button id="disco" onclick="table();date();disco();">Let's Disco!</button>
+    <p id="demo" onclick="date();"></p>
+    <table id="mytable">
+    </table>
+    <script>
+        var mytable=document.getElementById("mytable");
+        var r=0;
+        var td =document.getElementsByTagName("td");
+        var myArray=Baby_Name_List.split(",");
+        var a=0;
+        var tableCreated = false;
+        var myselect=document.getElementById("myselect");
+
+        function sel(){
+            var v=1;
+            for(var i=0;i<myArray.length;i++){
+                var texnode=document.createTextNode(v+"."+myArray[i]);
+                var option=document.createElement("option");
+                    option.appendChild(texnode);
+                    var myselect=document.getElementById("myselect");
+                    myselect.appendChild(option);
+                    v=v+1;
+            }
+        }
+        function table(){
+            if (!tableCreated) {
+            for (var i=1;i<22;i++){
+                var j=1;
+                var tr=document.createElement("tr");
+                var mytable=document.getElementById("mytable");
+                mytable.appendChild(tr);
+                var myselect=document.getElementById("myselect");
+                while(j<=i){
+                //    mytable.innerHTML+="<td>"+myArray[a]+"</td>";
+                    var texnode=document.createTextNode(myArray[a]);
+                    var td=document.createElement("td");
+                    td.appendChild(texnode);
+                    var mytable=document.getElementById("mytable");
+                    mytable.appendChild(td);
+                    a++;
+                    j++;}
+                }
+                tableCreated = true;
+            }
+        }
+        function date(){
+            var d = new Date();
+	        var x = document.getElementById("demo");
+            var y=parseFloat(d.getMonth());
+            var z=y+1;
+            var b=parseFloat(d.getHours());
+	        x.innerHTML=d.getFullYear()+"/";
+            x.innerHTML+=z+"/";
+            x.innerHTML+=d.getDate();
+            if (b>12){
+                var c=b-12;
+                x.innerHTML+="下午"+c+":";
+            }else if(b<12){
+                x.innerHTML+="上午"+b+":";
+            }else {
+                    x.innerHTML+="下午"+b+":";
+                }
+            x.innerHTML+=d.getMinutes()+":";
+            x.innerHTML+=d.getSeconds();
+        }
+        function select(){
+            var u=1;
+            var r=0;
+            for (var i=0;i<Baby_Name_List.length;i++){
+                var na=u+"."+td[r].innerHTML;
+                console.log(na);
+                if(na==myselect.value){
+                    td[r].style.backgroundColor="#00FFFF";
+                }else{
+                    td[r].style.backgroundColor="white";
+                }
+                r++;
+                u++;
+                a++;
+            }
+        }
+        function feel(){
+            var rand = Math.floor(Math.random()*myArray.length);
+            var rValue = myArray[rand];
+            var u=1;
+            var r=0;
+            for (var i=0;i<Baby_Name_List.length;i++){
+                if(td[r].innerHTML==rValue){
+                    td[r].style.backgroundColor="#00FFFF";
+                }else{
+                    td[r].style.backgroundColor="white";
+                }
+                r++;
+                u++;
+                a++;
+            }
+        }
+        function disco(){
+            if(document.getElementById("disco").innerHTML=="Let's Disco!"){
+                document.getElementById("disco").innerHTML="Stop the music!"
+                interval=setInterval(function feel(){var rand = Math.floor(Math.random()*myArray.length);
+                var rValue = myArray[rand];
+                var u=1;
+                var r=0;
+            for (var i=0;i<Baby_Name_List.length;i++){
+                if(td[r].innerHTML==rValue){
+                    td[r].style.backgroundColor="#00FFFF";
+                }else{
+                    td[r].style.backgroundColor="white";
+                }
+                r++;
+                u++;
+                a++;
+            }},1000);
+            inter=setInterval(date,1000);
+        }else{
+            document.getElementById("disco").innerHTML="Let's Disco!";
+            clearInterval(interval);
+            clearInterval(inter);
+        }
+        }
+
+    </script>
+</body>
+</html>
